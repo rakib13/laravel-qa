@@ -10002,3 +10002,28 @@ h3 {
     border-color: #dee2e6;
   }
 }
+.counters {
+  margin-right: 30px;
+  font-size: 10px;
+  text-align: center;
+}
+.counters strong {
+  display: block;
+  font-size: 1.5em;
+}
+.counters .vote, .counters .answer {
+  width: 60px;
+  height: 60px;
+}
+.counters .status.unanswered {
+  border: 1px solid #da1a1a;
+  color: #da1a1a;
+}
+.counters .status.answered {
+  border: 1px solid #5fbb7e;
+  color: #5fbb7e;
+}
+.counters .status.answered-accepted {
+  background: #5fbb7e;
+  color: #fff;
+}

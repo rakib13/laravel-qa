@@ -10027,3 +10027,7 @@ h3 {
   background: #5fbb7e;
   color: #fff;
 }
+
+form.form-delete {
+  display: inline;
+}

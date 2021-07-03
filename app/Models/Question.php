@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Mail\Markdown;
 use Illuminate\Support\Str;
 
 class Question extends Model
@@ -25,13 +26,20 @@ class Question extends Model
 
     public function getUrlAttribute()
     {
-        return route("questions.show", $this->id);
+        return route('questions.show', $this->slug);
     }
 
     public function getCreatedDateAttribute()
     {
         return $this->created_at->diffForHumans();
         // return $this->created_at->format('Y-m-d');
+    }
+
+    public function getBodyHtmlAttribute()
+    {
+        return $this->body;
+        
+        // Did not working in laravel 8 \Parsedown::instance()->text($this->body);
     }
 
     public function getStatusAttribute()

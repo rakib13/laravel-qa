@@ -35,6 +35,18 @@ class Question extends Model
         // return $this->created_at->format('Y-m-d');
     }
 
+    
+    public function getStatusAttribute()
+    {
+        if($this->answers_count >0){
+            if($this->best_answer_id){
+                return "answered-accepted";
+            }
+            return "answered";
+        }
+        return "unanswered";
+    }
+
     public function getBodyHtmlAttribute()
     {
         return $this->body;
@@ -42,14 +54,8 @@ class Question extends Model
         // Did not working in laravel 8 \Parsedown::instance()->text($this->body);
     }
 
-    public function getStatusAttribute()
+    public function answers()
     {
-        if($this->answers >0){
-            if($this->best_answer_id){
-                return "answered-accepted";
-            }
-            return "answered";
-        }
-        return "unanswered";
+        return $this->hasMany(Answer::class);
     }
 }

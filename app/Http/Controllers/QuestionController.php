@@ -97,6 +97,10 @@ class QuestionController extends Controller
      */
     public function update(AskQuestionRequest $request, Question $question)
     {
+        /* if (Gate::denies('update-question', $question)) {
+        *    abort(403, "Access denied");
+        * }
+        */
 
         $this->authorize('update', $question);
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use phpDocumentor\Reflection\Types\Null_;
 
 class Answer extends Model
 {
@@ -36,7 +37,13 @@ class Answer extends Model
         });
 
         static::deleted(function ($answer) {
-            $answer->question->decrement('answers_count');
+            $question = $answer->question;
+            $question->decrement('answers_count');
+
+            if ($question->best_answer_id === $answer->id) {
+                $question->best_answer_id = NULL;
+                $question->save();
+            }
         });
     }
 
@@ -44,5 +51,10 @@ class Answer extends Model
     {
         return $this->created_at->diffForHumans();
         // return $this->created_at->format('Y-m-d');
+    }
+
+    public function getStatusAttribute()
+    {
+        return $this->id === $this->question->best_answer_id ? 'vote-accepted' : '';
     }
 }

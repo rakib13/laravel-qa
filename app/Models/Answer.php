@@ -45,4 +45,9 @@ class Answer extends Model
         return $this->created_at->diffForHumans();
         // return $this->created_at->format('Y-m-d');
     }
+
+    public function getStatusAttribute()
+    {
+        return $this->question->best_answer_id === $this->id ? 'vote-accepted' : '';
+    }
 }
